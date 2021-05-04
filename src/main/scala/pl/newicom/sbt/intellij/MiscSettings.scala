@@ -1,4 +1,4 @@
-package net.abaro.opt.sbt.intellij
+package pl.newicom.sbt.intellij
 
 import advxml.core.transform.{XmlRule, XmlZoom}
 import advxml.implicits._

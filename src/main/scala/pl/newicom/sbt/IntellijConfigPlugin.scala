@@ -1,8 +1,8 @@
-package net.abaro.opt.sbt
+package pl.newicom.sbt
 
 import advxml.implicits._
 import cats.instances.try_._
-import net.abaro.opt.sbt.intellij.{IntellijConfigModification, MiscSettings, WorkspaceSettings}
+import pl.newicom.sbt.intellij.{IntellijConfigModification, MiscSettings, WorkspaceSettings}
 import sbt.Keys._
 import sbt._
 
