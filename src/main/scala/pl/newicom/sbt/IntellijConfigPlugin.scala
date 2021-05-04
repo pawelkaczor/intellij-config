@@ -2,12 +2,13 @@ package pl.newicom.sbt
 
 import advxml.implicits._
 import cats.instances.try_._
-import pl.newicom.sbt.intellij.{IntellijConfigModification, MiscSettings, WorkspaceSettings}
+import pl.newicom.sbt.intellij._
 import sbt.Keys._
 import sbt._
 
 import scala.language.implicitConversions
 import scala.sys.env
+import scala.util.Try
 import scala.xml._
 
 object IntellijConfigPlugin extends AutoPlugin {
@@ -25,16 +26,21 @@ object IntellijConfigPlugin extends AutoPlugin {
 
   override val globalSettings: Seq[Def.Setting[_]] = Seq(
     onLoad in Global := (onLoad in Global).value andThen { state =>
-      modifications.foreach(mod => {
-        val confFile = file(s".idea/${mod.fileName}")
-        val newConfXml = XML.loadFile(confFile)
-          .transform(mod.modificationRules)
-          .get.head
-
-        XML.save(filename = confFile.getPath, node = newConfXml)
-      })
+      applyModifications()
       state
     }
   )
+
+  private[sbt] def applyModifications(configDir: String = ".idea"): Seq[Unit] =
+    for {
+      mod          <- modifications
+      xmlConfig    <- Try(XML.loadFile(configFile(mod, configDir))).toOption.toList
+      newXmlConfig <- xmlConfig.transform(mod.modificationRules).toOption.toList
+    } yield {
+      XML.save(configFile(mod, configDir).getPath, newXmlConfig.head)
+    }
+
+  def configFile(mod: IntellijConfigModification, intellijConfigDir: String): sbt.File =
+    sbt.file(s"$intellijConfigDir/${mod.fileName}")
 
 }
