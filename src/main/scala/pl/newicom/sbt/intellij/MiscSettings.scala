@@ -18,8 +18,8 @@ case class MiscSettings(languageLevel: Option[String], projectJdkName: Option[St
 
   def modificationRules: List[XmlRule] = List(
     projectComponentZoom ==> (
-      languageLevel.map(ll => SetAttr(_ => k"languageLevel" := ll)).getOrElse(NoAction)
-        |+| projectJdkName.map(jdk => SetAttr(_ => k"project-jdk-name" := jdk)).getOrElse(NoAction)
+      languageLevel.map(ll => SetAttrs(k"languageLevel" := ll)).getOrElse(NoAction)
+        |+| projectJdkName.map(jdk => SetAttrs(k"project-jdk-name" := jdk)).getOrElse(NoAction)
     )
   )
 
