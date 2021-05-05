@@ -5,10 +5,15 @@
 
 A sbt plugin that applies configurable modifications to the Intellij Idea project settings.
 
-Intellij Idea keeps project settings in multiple xml files under <project root>/.idea directory.
-To perform modifications in these files, the plugin uses [Advxml](https://github.com/geirolz/advxml) library. 
-The modifications are expressed in Advxml DSL. 
-Which modifications should be applied is configrable via environament variables.
+## Motivation 
+Currently Intellij Idea does not allow to share project settings between projects [(IDEA-221422)](https://youtrack.jetbrains.com/issue/IDEA-221422). If you decide to change a setting, you need to do it manually in all your projects. 
+
+
+## Solution (for Scala Sbt projects)
+
+Intellij Idea keeps project settings in multiple xml files under PROJECT_ROOT/.idea directory.
+Once the project is loaded by sbt, the plugin will modify the settings in these files.
+Which modifications should be applied is configurable via environament variables.
 Currently, the following modifications are supported:
 
 Modification | Environment variable | Configuration file
@@ -17,3 +22,7 @@ Project language level | INTELLIJ_LANG_LEVEL | misc.xml
 Jdk name | INTELLIJ_JDK_NAME | misc.xml
 Display options dialog on VCS update? | INTELLIJ_DISPLAY_OPTIONS_DIALOG_ON_VCS_UPDATE (flag) | workspace.xml
 Add new files to VCS silently? | INTELLIJ_ADD_NEW_FILES_TO_VCS (flag) | workspace.xml
+
+## Implementation
+
+The modifications are expressed in [Advxml](https://github.com/geirolz/advxml) DSL. 
