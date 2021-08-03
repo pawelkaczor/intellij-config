@@ -1,4 +1,4 @@
-package pl.newicom.sbt.intellij
+package pl.newicom.ide.intellij
 
 import advxml.core.transform.XmlRule
 

@@ -1,4 +1,4 @@
-package pl.newicom.sbt
+package pl.newicom.ide.intellij
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

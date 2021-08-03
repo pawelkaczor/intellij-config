@@ -1,8 +1,7 @@
-package pl.newicom.sbt
+package pl.newicom.ide.intellij
 
 import advxml.implicits._
 import cats.instances.try_._
-import pl.newicom.sbt.intellij._
 import sbt.Keys._
 import sbt._
 
@@ -31,7 +30,7 @@ object IntellijConfigPlugin extends AutoPlugin {
     }
   )
 
-  private[sbt] def applyModifications(configDir: String = ".idea"): Seq[Unit] =
+  private[ide] def applyModifications(configDir: String = ".idea"): Seq[Unit] =
     for {
       mod          <- modifications
       xmlConfig    <- Try(XML.loadFile(configFile(mod, configDir))).toOption.toList
