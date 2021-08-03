@@ -19,7 +19,7 @@ case class WorkspaceSettings(
 
   def fileName: String = "workspace.xml"
 
-  // TODO create vcsComponent if it not exists
+  // TODO create vcsComponent if not present
   private val vcsComponentZoom: XmlZoom =
     $.component.filter(attrs(k"name" === "ProjectLevelVcsManager"))
 
